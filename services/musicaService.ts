@@ -8,5 +8,24 @@ export const musicaService = {
         
         const {data} = await http.post<Musica>("/musicas",musica)
         return data
+    },
+
+    listar:async (): Promise<Musica[]> => {
+        const{data} = await http.get<Musica[]>('/musicas')
+        return data
+    },
+
+    buscarPorId: async (id: number | string): Promise<Musica> => {
+        const {data} = await http.get<Musica>(`/musicas/${id}`)
+        return data
+    },
+
+    editar: async (id: number | string, musica:Musica): Promise<Musica> => {
+        const {data} = await http.put<Musica>(`musicas/$(id)`, musica)
+        return data
+    },
+
+    deletar: async (id:number | string): Promise<void> => {
+        await http.delete(`/musicas?${id}`)
     }
 }
